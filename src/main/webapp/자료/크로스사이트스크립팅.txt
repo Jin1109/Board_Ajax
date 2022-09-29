@@ -1,0 +1,23 @@
+* Cross-Site Scripting
+악의적으로 사용자가 공격하려는 사이트에 스크립트를 넣는 기법이며
+공격에 성공하면 사이트에 접속한 사용자는 삽입된 코드를 실행하게 되면서 의도치 않은 행동을 수행시킵니다
+
+* 해결 방법
+	① textarea태그에 출력하는 경우 text로 처리해 스크립트가 실행되지 않습니다.
+	
+	② 코어 라이브러리 이용하는 경우
+		<c:out value="${b.BOARD_SUBJECT}" escapeXml="true"/>
+		escapeXml="true" 옵션을 이용해서 HTML 태그를 화면에 그대로 보여주게 합니다.
+		
+	③ 자바스크립트의 replace를 이용하는 방법
+	
+	④ 입력된 데이터의 "<", ">"를 특수 문자로 변경합니다.
+	  //크로스 사이트 스크립팅 방지하기 위한 메서드
+	  private String replaceParameter(String param){
+	  	 String result = param;
+	     if(param != null){
+	  		 result = result.replaceAll("<", "&lt;");
+	  		 result = result.replaceAll(">", "&gt;");
+	  	 }
+	  	 return result;
+	  }
